@@ -24,10 +24,10 @@ public class HobbyDTO {
         this.name = hobby.getName();
         this.description = hobby.getDescription();
         
-        persons = new ArrayList();
+        /*persons = new ArrayList();
         for(Person p : hobby.getPersons()) {
             persons.add(new PersonDTO(p));
-        }
+        }*/
     }
 
     public Long getId() {

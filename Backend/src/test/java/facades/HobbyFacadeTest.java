@@ -21,14 +21,14 @@ import utils.EMF_Creator;
 
 /**
  *
- * @author Joe
+ * @author Martin Frederiksen
  */
 public class HobbyFacadeTest {
     private static EntityManagerFactory emf;
     private static HobbyFacade facade;
     private static Hobby h1, h2;
     private static List<HobbyDTO> hobbies;
-    
+
     public HobbyFacadeTest() {
     }
 
@@ -41,17 +41,17 @@ public class HobbyFacadeTest {
                 EMF_Creator.Strategy.CREATE);
         facade = HobbyFacade.getHobbyFacade(emf);
     }
-    
+
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST,EMF_Creator.Strategy.DROP_AND_CREATE);
        facade = HobbyFacade.getHobbyFacade(emf);
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
@@ -72,7 +72,7 @@ public class HobbyFacadeTest {
             em.close();
         }
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
@@ -88,21 +88,21 @@ public class HobbyFacadeTest {
         HobbyFacade result = HobbyFacade.getHobbyFacade(_emf);
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testGetAllHobbies() {
         List<HobbyDTO> expResult = hobbies;
         List<HobbyDTO> result = facade.getHobbies();
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testGetHobbyByID() {
-        HobbyDTO expResult = hobbies.get(0);
-        HobbyDTO result = facade.getHobbyById(hobbies.get(0).getId());
+        HobbyDTO expResult = new HobbyDTO(h1);
+        HobbyDTO result = facade.getHobbyById(h1.getId());
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testAddHobbyTrue() {
         Hobby h3 = new Hobby("TestHobby", "Test test test");
@@ -110,14 +110,14 @@ public class HobbyFacadeTest {
         HobbyDTO result = facade.getHobbyById(h3.getId());
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testAddHobbyFalse() {
         facade.addHobby(h2);
         List<HobbyDTO> result = facade.getHobbies();
         assertNotEquals(3, result.size());
     }
-    
+
     @Test
     public void testDeleteHobby() {
         EntityManager em = emf.createEntityManager();
@@ -133,7 +133,7 @@ public class HobbyFacadeTest {
         HobbyDTO result = facade.deleteHobby(h3.getId());
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testEditHobby() {
         h2.setName("New name for test");

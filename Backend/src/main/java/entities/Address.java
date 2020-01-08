@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Address implements Serializable {
     @ManyToOne
     private CityInfo cityInfo;
     
+    @OneToMany(mappedBy = "address")
     private List<Person> persons;
 
     public Address() {

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
 /**
@@ -25,6 +26,7 @@ public class Person implements Serializable {
     private String phone;
     private String firstName;
     private String lastName;
+    @ManyToOne
     private Address address;
     @ManyToMany
     private List<Hobby> hobbies;
@@ -32,13 +34,11 @@ public class Person implements Serializable {
     public Person() {
     }
 
-    public Person(String email, String phone, String firstName, String lastName, Address address, List<Hobby> hobbies) {
+    public Person(String email, String phone, String firstName, String lastName) {
         this.email = email;
         this.phone = phone;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
-        this.hobbies = hobbies;
     }
     
     public Long getId() {
