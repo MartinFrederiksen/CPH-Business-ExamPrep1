@@ -1,10 +1,8 @@
 package entities.dto;
 
 import entities.Hobby;
-import entities.Person;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -18,16 +16,18 @@ public class HobbyDTO {
 
     public HobbyDTO() {
     }
-
+    
+    public HobbyDTO(String name, String description, List<PersonDTO> persons) {
+        this.name = name;
+        this.description = description;
+        this.persons = persons;
+    }
+    
     public HobbyDTO(Hobby hobby) {
         this.id = hobby.getId();
         this.name = hobby.getName();
         this.description = hobby.getDescription();
-        
-        /*persons = new ArrayList();
-        for(Person p : hobby.getPersons()) {
-            persons.add(new PersonDTO(p));
-        }*/
+        this.persons = new ArrayList();
     }
 
     public Long getId() {
@@ -61,42 +61,4 @@ public class HobbyDTO {
     public void setPersons(List<PersonDTO> persons) {
         this.persons = persons;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.persons);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final HobbyDTO other = (HobbyDTO) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.persons, other.persons)) {
-            return false;
-        }
-        return true;
-    }
-    
 }

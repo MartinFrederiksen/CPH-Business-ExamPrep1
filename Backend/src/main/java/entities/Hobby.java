@@ -7,14 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Martin Frederiksen
  */
 @Entity
-@NamedQuery(name = "Hobby.deleteAllRows", query = "DELETE from Hobby")
 public class Hobby implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,15 +23,16 @@ public class Hobby implements Serializable {
     private String description;
     @ManyToMany(mappedBy = "hobbies")
     private List<Person> persons;
-
+    
     public Hobby() {
     }
 
-    public Hobby(String name, String description) {
+    public Hobby(String name, String description, List<Person> persons) {
         this.name = name;
         this.description = description;
+        this.persons = persons;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -65,5 +64,4 @@ public class Hobby implements Serializable {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-    
 }

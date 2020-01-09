@@ -4,7 +4,6 @@ import entities.Hobby;
 import entities.Person;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -16,18 +15,31 @@ public class PersonDTO {
     private String phone;
     private String firstName;
     private String lastName;
-    private AddressDTO address;
     private List<HobbyDTO> hobbies;
+    private AddressDTO address;
 
     public PersonDTO() {
     }
 
+    public PersonDTO(String email, String phone, String firstName, String lastName, List<HobbyDTO> hobbies, AddressDTO address) {
+        this.email = email;
+        this.phone = phone;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hobbies = hobbies;
+        this.address = address;
+    }
+    
     public PersonDTO(Person person) {
-        this.id = person.getId();
         this.email = person.getEmail();
         this.phone = person.getPhone();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
+        this.address = new AddressDTO(person.getAddress());
+        this.hobbies = new ArrayList();
+        for(Hobby h : person.getHobbies()){
+            hobbies.add(new HobbyDTO(h));
+        }
     }
 
     public Long getId() {
@@ -70,14 +82,6 @@ public class PersonDTO {
         this.lastName = lastName;
     }
 
-    public AddressDTO getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressDTO address) {
-        this.address = address;
-    }
-
     public List<HobbyDTO> getHobbies() {
         return hobbies;
     }
@@ -86,53 +90,11 @@ public class PersonDTO {
         this.hobbies = hobbies;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 17 * hash + Objects.hashCode(this.id);
-        hash = 17 * hash + Objects.hashCode(this.email);
-        hash = 17 * hash + Objects.hashCode(this.phone);
-        hash = 17 * hash + Objects.hashCode(this.firstName);
-        hash = 17 * hash + Objects.hashCode(this.lastName);
-        hash = 17 * hash + Objects.hashCode(this.address);
-        hash = 17 * hash + Objects.hashCode(this.hobbies);
-        return hash;
+    public AddressDTO getAddress() {
+        return address;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PersonDTO other = (PersonDTO) obj;
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.phone, other.phone)) {
-            return false;
-        }
-        if (!Objects.equals(this.firstName, other.firstName)) {
-            return false;
-        }
-        if (!Objects.equals(this.lastName, other.lastName)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.address, other.address)) {
-            return false;
-        }
-        if (!Objects.equals(this.hobbies, other.hobbies)) {
-            return false;
-        }
-        return true;
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
-
 }

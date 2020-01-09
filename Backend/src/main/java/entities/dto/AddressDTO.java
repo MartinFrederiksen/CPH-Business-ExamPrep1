@@ -1,9 +1,8 @@
 package entities.dto;
 
-import java.util.List;
 import entities.Address;
-import entities.Person;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -11,22 +10,28 @@ import java.util.ArrayList;
  */
 public class AddressDTO {
     private Long id;
-    private String streetName;
-    private CityInfoDTO cityInfo;
+    private String street;
+    private String city;
+    private String zip;
+    
     private List<PersonDTO> persons;
 
     public AddressDTO() {
     }
 
+    public AddressDTO(String street, String city, String zip, List<PersonDTO> persons) {
+        this.street = street;
+        this.city = city;
+        this.zip = zip;
+        this.persons = persons;
+    }
+    
     public AddressDTO(Address address) {
         this.id = address.getId();
-        this.streetName = address.getStreetName();
-        this.cityInfo = new CityInfoDTO(address.getCityInfo());
-        
-        persons = new ArrayList();
-        for(Person p : address.getPersons()){
-            persons.add(new PersonDTO(p));
-        }
+        this.street = address.getStreet();
+        this.city = address.getCity();
+        this.zip = address.getZip();
+        this.persons = new ArrayList();
     }
 
     public Long getId() {
@@ -37,20 +42,28 @@ public class AddressDTO {
         this.id = id;
     }
 
-    public String getStreetName() {
-        return streetName;
+    public String getStreet() {
+        return street;
     }
 
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public CityInfoDTO getCityInfo() {
-        return cityInfo;
+    public String getCity() {
+        return city;
     }
 
-    public void setCityInfo(CityInfoDTO cityInfo) {
-        this.cityInfo = cityInfo;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
     public List<PersonDTO> getPersons() {
@@ -60,5 +73,4 @@ public class AddressDTO {
     public void setPersons(List<PersonDTO> persons) {
         this.persons = persons;
     }
-    
 }

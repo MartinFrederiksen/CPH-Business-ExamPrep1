@@ -8,37 +8,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Martin Frederiksen
  */
 @Entity
-@NamedQuery(name = "Person.deleteAllRows", query = "DELETE from Person")
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
     private String phone;
     private String firstName;
     private String lastName;
+    
     @ManyToOne
     private Address address;
+    
     @ManyToMany
     private List<Hobby> hobbies;
 
     public Person() {
     }
 
-    public Person(String email, String phone, String firstName, String lastName) {
+    public Person(String email, String phone, String firstName, String lastName, Address address, List<Hobby> hobbies) {
         this.email = email;
         this.phone = phone;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
+        this.hobbies = hobbies;
     }
     
     public Long getId() {
@@ -88,7 +90,7 @@ public class Person implements Serializable {
     public void setAddress(Address address) {
         this.address = address;
     }
-
+    
     public List<Hobby> getHobbies() {
         return hobbies;
     }

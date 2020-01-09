@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -15,16 +13,15 @@ import javax.persistence.OneToMany;
  * @author Martin Frederiksen
  */
 @Entity
-@NamedQuery(name = "Address.deleteAllRows", query = "DELETE from Address")
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String streetName;
-    @ManyToOne
-    private CityInfo cityInfo;
+    private String street;
+    private String city;
+    private String zip;
     
     @OneToMany(mappedBy = "address")
     private List<Person> persons;
@@ -32,11 +29,13 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(String streetName, CityInfo cityInfo) {
-        this.streetName = streetName;
-        this.cityInfo = cityInfo;
+    public Address(String street, String city, String zip, List<Person> persons) {
+        this.street = street;
+        this.city = city;
+        this.zip = zip;
+        this.persons = persons;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -45,20 +44,28 @@ public class Address implements Serializable {
         this.id = id;
     }
 
-    public String getStreetName() {
-        return streetName;
+    public String getStreet() {
+        return street;
     }
 
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public CityInfo getCityInfo() {
-        return cityInfo;
+    public String getCity() {
+        return city;
     }
 
-    public void setCityInfo(CityInfo cityInfo) {
-        this.cityInfo = cityInfo;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
     public List<Person> getPersons() {
@@ -68,5 +75,4 @@ public class Address implements Serializable {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-    
 }
